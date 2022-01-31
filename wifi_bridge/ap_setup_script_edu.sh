@@ -34,6 +34,7 @@ echo '#################################'
 echo 'Installing create_ap'
 git clone https://github.com/oblique/create_ap
 cd create_ap
+git pull 
 make install
 cd -
 
@@ -55,9 +56,10 @@ cat $output
 
 automatic_local_file=/etc/rc.local
 
-sed -i '$d' $automatic_local_file
+sed -i '$d' $automatic_local_file # delete the last valid line 'exit 0'
 
-echo 'sudo ifconfig wlan0 down' # shutdown the pi's own wifi adaptor. then wlan1 will automatically connect to the Paw_secure
+echo 'sudo ifconfig wlan0 down' >> $automatic_local_file # shutdown the pi's own wifi adaptor. then wlan1 will automatically connect to the Paw_secure
+echo 'sudo ifconfig wlan2 down' >> $automatic_local_file
 echo 'sudo create_ap wlan2 eth0' $hotspot_username $hotspot_password >> $automatic_local_file
 echo "sudo /etc/init.d/ssh restart" >> $automatic_local_file
 echo "exit 0" >> $automatic_local_file 
