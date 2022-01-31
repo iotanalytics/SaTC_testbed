@@ -4,7 +4,7 @@
 if [[ $# -lt 4 ]]
    then
      echo 'Usage: sudo ./ap_setup_script_edu.sh edu_wifi_ssid edu_wifi_identity edu_wifi_password hotspot_username hotspot_password'
-     echo 'Usage: sudo ./ap_setup_script_edu.sh PAWS-Secure XXXXXXX XXXXXX SensorwebWiFi sensorweb'
+     echo 'Usage: sudo ./ap_setup_script_edu.sh PAWS-Secure XXXXXXX XXXXXX sensorweb sensorweb128'
    exit 1
 fi
 
