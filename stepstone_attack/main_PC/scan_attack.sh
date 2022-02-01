@@ -10,7 +10,7 @@ fi
 
 # Default attack mode.
 if [[ $# -eq 1 ]]; then
-    echo 'Default attack without specific ip addresses:'
+    echo 'Default attack without specific ip addresses...'
     ssh pi@10.42.0.187 > /dev/null 2>&1 << eeooff
     cd Workspace
     echo "$1" > test.txt
@@ -19,6 +19,7 @@ if [[ $# -eq 1 ]]; then
     nc -zvn 10.42.0.187 1-36000
     exit
 eeooff
+exit 0
 fi
 
 command=$1
