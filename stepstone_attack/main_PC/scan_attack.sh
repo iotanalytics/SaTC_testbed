@@ -1,5 +1,4 @@
 #!/bin/bash
-
 if [[ $# -lt 1 ]]; then
     echo 'Usage:'
     echo './scan_attack.sh command_code ip1 ip2 ip3 ...'
@@ -22,12 +21,18 @@ eeooff
 exit 0
 fi
 
-command=$1
-next_stepstone=$2
+arg_array=($@)
+command=${arg_array[0]}
+next_stepstone=${arg_array[1]}
+echo $next_stepstone
+unset 'arg_array[1]'
+next_arg_array=${arg_array[@]}
+echo $next_arg_array
 ssh pi@$next_stepstone > /dev/null 2>&1 << eeooff
-cd Workspace
-echo "$2 $1" > test.txt
-exit 0
-eeooff 
-
+    cd Workspace
+    echo "$next_arg_array" > test.txt
+    exit 0
 eeooff
+
+echo done!
+exit 0
