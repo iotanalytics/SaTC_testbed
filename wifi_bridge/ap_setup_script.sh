@@ -7,7 +7,7 @@ if [[ $# -lt 4 ]]
      echo 'Usage: sudo ./ap_setup_script.sh -edu PAWS-Secure XXXXXXX XXXXXX sensorweb sensorweb128'
      echo $'\n'
      echo 'Common wifi usage: sudo ./ap_setup_script_hidden.sh wifi_username wifi_password hotspot_username hotspot_password'
-     echo 'Usage: sudo ./ap_setup_script_hidden.sh Existing_wifi Existing_wifi_password SensorwebWifi sensorweb'
+     echo 'Usage: sudo ./ap_setup_script.sh Existing_wifi Existing_wifi_password SensorwebWifi sensorweb'
    exit 1
 fi
 
