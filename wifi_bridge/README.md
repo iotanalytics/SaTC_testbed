@@ -2,9 +2,9 @@
 This script turns a raspberry Pi into a wifi bridge.
 
 ## Usage:
+```chmod a+x ap_setup_script.sh```
 ### edu WiFi:
 ```bash
-chmod a+x ap_setup_script.sh
 sudo ./ap_setup_script.sh -edu edu_wifi_ssid edu_wifi_identity edu_wifi_password hotspot_username hotspot_password
 ```
 e.g. ```sudo ./ap_setup_script.sh -edu PAWS-Secure XXXXXXX XXXXXX sensorweb sensorweb128```
