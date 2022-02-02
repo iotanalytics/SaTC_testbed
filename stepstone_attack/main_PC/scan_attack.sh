@@ -13,7 +13,7 @@ if [[ $# -eq 1 ]]; then
     ssh pi@10.42.0.187 > /dev/null 2>&1 << eeooff
     cd Workspace
     echo "$1" > test.txt
-    python publisher.py 1 "$1"
+    python publisher.py "$1"
     ./pi1.sh "$1" 
     nc -zvn 10.42.0.187 1-36000
     exit
@@ -24,13 +24,15 @@ fi
 arg_array=($@)
 command=${arg_array[0]}
 next_stepstone=${arg_array[1]}
-echo $next_stepstone
+echo 'next_stepstone:' $next_stepstone
 unset 'arg_array[1]'
 next_arg_array=${arg_array[@]}
-echo $next_arg_array
+echo "next arguments: "$next_arg_array
+echo "command:" $command
 ssh pi@$next_stepstone > /dev/null 2>&1 << eeooff
     cd Workspace
-    echo "$next_arg_array" > test.txt
+    python3 publisher.py "$command"
+    ./pi.sh $next_arg_array
     exit 0
 eeooff
 

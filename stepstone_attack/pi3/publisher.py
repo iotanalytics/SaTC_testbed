@@ -9,8 +9,8 @@ client = mqtt.Client()
 client.on_connect = on_connect
 client.connect("broker.emqx.io", 1883, 60)
 
-client.publish(f'raspberry/sensorweb{sys.argv[1]}', payload=sys.argv[2], qos=0, retain=False)
-print(f"send {sys.argv[1]} to raspberry/topic")
+client.publish(f'raspberry/sensorweb3', payload=sys.argv[1], qos=0, retain=False)
+print(f"send 3 to raspberry/topic")
 #time.sleep(1)
 
 quit()
