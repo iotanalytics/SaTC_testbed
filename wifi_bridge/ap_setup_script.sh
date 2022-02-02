@@ -53,6 +53,10 @@ echo 'Setting..'
 
 output=/etc/wpa_supplicant/wpa_supplicant.conf
 
+echo "ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev" > $output
+echo "update_config=1" >> $output
+echo "country=US" >> $output
+
 if [ "$1" == "-edu" ]; then
   echo "network={" >> $output
   echo "    ssid=\"$wifi_username\"" >> $output
@@ -74,7 +78,7 @@ cat $output
 
 automatic_local_file=/etc/rc.local
 
-sed -i '$d' $automatic_local_file # delete the last valid line 'exit 0'
+sed -i '20, $d' $automatic_local_file # delete the lines from line 20
 
 echo 'sudo ifconfig wlan0 down' >> $automatic_local_file # shutdown the pi's own wifi adaptor. then wlan1 will automatically connect to the Paw_secure
 echo 'sudo ifconfig wlan2 down' >> $automatic_local_file
