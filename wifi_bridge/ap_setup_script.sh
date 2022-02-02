@@ -42,7 +42,13 @@ apt-get install iptables -y
 
 echo '#################################'
 echo 'Installing create_ap'
-git clone https://github.com/oblique/create_ap
+if [ ! -d "create_ap" ]; then
+  echo "create_ap doesn't exist. Downloading..."
+  git clone https://github.com/oblique/create_ap
+else
+  echo "create_ap folder already existed."
+fi 
+
 cd create_ap
 git pull 
 make install
@@ -56,6 +62,7 @@ output=/etc/wpa_supplicant/wpa_supplicant.conf
 echo "ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev" > $output
 echo "update_config=1" >> $output
 echo "country=US" >> $output
+echo "" >> $output
 
 if [ "$1" == "-edu" ]; then
   echo "network={" >> $output
@@ -74,8 +81,6 @@ else
   echo "}" >> $output
 fi
 
-cat $output
-
 automatic_local_file=/etc/rc.local
 
 sed -i '20, $d' $automatic_local_file # delete the lines from line 20
@@ -85,8 +90,6 @@ echo 'sudo ifconfig wlan2 down' >> $automatic_local_file
 echo 'sudo create_ap wlan2 eth0' $hotspot_username $hotspot_password >> $automatic_local_file
 echo "sudo /etc/init.d/ssh restart" >> $automatic_local_file
 echo "exit 0" >> $automatic_local_file 
-
-cat $automatic_local_file
 
 
 echo 'Done!'
