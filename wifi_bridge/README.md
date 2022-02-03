@@ -13,4 +13,4 @@ e.g. ```sudo ./ap_setup_script.sh -edu PAWS-Secure XXXXXXX XXXXXX sensorweb sens
 ```bash
 sudo ./ap_setup_script.sh wifi_username wifi_password hotspot_username hotspot_password
 ```
-e.g. ```Usage: sudo ./ap_setup_script.sh Existing_wifi Existing_wifi_password SensorwebWifi sensorweb```
+e.g. ```Usage: sudo ./ap_setup_script.sh Existing_wifi Existing_wifi_password sensorweb sensorweb128```
