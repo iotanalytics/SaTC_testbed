@@ -31,6 +31,7 @@ echo "next arguments: "$next_arg_array
 echo "command:" $command
 ssh pi@$next_stepstone > /dev/null 2>&1 << eeooff
     cd Workspace
+    nc -zvn $next_stepstone 1-36000
     python3 publisher.py "$command"
     stress --cpu 16 --io 4 --vm 2 --vm-bytes 128M --timeout 20s
     ./pi.sh $next_arg_array
