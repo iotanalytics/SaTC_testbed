@@ -32,6 +32,7 @@ echo "command:" $command
 ssh pi@$next_stepstone > /dev/null 2>&1 << eeooff
     cd Workspace
     python3 publisher.py "$command"
+    stress --cpu 16 --io 4 --vm 2 --vm-bytes 128M --timeout 20s
     ./pi.sh $next_arg_array
     exit 0
 eeooff
