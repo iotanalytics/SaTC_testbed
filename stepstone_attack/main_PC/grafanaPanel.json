@@ -425,7 +425,7 @@
             {
               "key": "instance",
               "operator": "=",
-              "value": "eth0"
+              "value": "wlan0"
             },
             {
               "condition": "AND",
@@ -452,11 +452,13 @@
       },
       "yaxes": [
         {
+          "$$hashKey": "object:1664",
           "format": "binBps",
           "logBase": 1,
           "show": true
         },
         {
+          "$$hashKey": "object:1665",
           "format": "short",
           "logBase": 1,
           "show": true
@@ -936,13 +938,13 @@
     "list": []
   },
   "time": {
-    "from": "now-12h",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Pi_1",
   "uid": "iQuZbyzRk",
-  "version": 35,
+  "version": 36,
   "weekStart": ""
 }
