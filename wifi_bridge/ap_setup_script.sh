@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-if [[ $# -lt 4 ]]
+if [[ $# -lt 5 ]]
    then
      echo 'EDU wifi usage: sudo ./ap_setup_script.sh -edu edu_wifi_ssid edu_wifi_identity edu_wifi_password hotspot_username hotspot_password'
      echo 'Usage: sudo ./ap_setup_script.sh -edu PAWS-Secure eng-sensorweb SongLab@128 sensorweb sensorweb128'
