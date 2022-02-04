@@ -326,13 +326,13 @@
       "id": 11,
       "interval": "10min",
       "legend": {
-        "avg": false,
+        "avg": true,
         "current": false,
-        "max": false,
+        "max": true,
         "min": false,
         "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
@@ -788,7 +788,14 @@
             "type": "influxdb",
             "uid": "mckEthb7z"
           },
-          "groupBy": [],
+          "groupBy": [
+            {
+              "params": [
+                "$interval"
+              ],
+              "type": "time"
+            }
+          ],
           "measurement": "disk_write",
           "orderByTime": "ASC",
           "policy": "default",
@@ -803,91 +810,14 @@
                   "value"
                 ],
                 "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "instance",
-              "operator": "=",
-              "value": "sda"
-            },
-            {
-              "condition": "AND",
-              "key": "type",
-              "operator": "=",
-              "value": "disk_octets"
-            }
-          ]
-        },
-        {
-          "alias": "External Read",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "mckEthb7z"
-          },
-          "groupBy": [],
-          "measurement": "disk_read",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT mean(\"value\") FROM \"disk_write\" WHERE (\"instance\" = 'sda3') AND $timeFilter GROUP BY time($__interval) fill(null)",
-          "rawQuery": false,
-          "refId": "B",
-          "resultFormat": "time_series",
-          "select": [
-            [
+              },
               {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
+                "params": [],
+                "type": "mean"
               }
             ]
           ],
           "tags": [
-            {
-              "key": "instance",
-              "operator": "=",
-              "value": "sda3"
-            },
-            {
-              "condition": "AND",
-              "key": "type",
-              "operator": "=",
-              "value": "disk_octets"
-            }
-          ]
-        },
-        {
-          "alias": "SD Card Written",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "mckEthb7z"
-          },
-          "groupBy": [],
-          "measurement": "disk_write",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT mean(\"value\") FROM \"disk_write\" WHERE (\"instance\" = 'sda3') AND $timeFilter GROUP BY time($__interval) fill(null)",
-          "rawQuery": false,
-          "refId": "C",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "instance",
-              "operator": "=",
-              "value": "mmcblk0p2"
-            },
             {
               "condition": "AND",
               "key": "type",
@@ -938,13 +868,13 @@
     "list": []
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-12h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Pi_1",
   "uid": "iQuZbyzRk",
-  "version": 36,
+  "version": 43,
   "weekStart": ""
 }
