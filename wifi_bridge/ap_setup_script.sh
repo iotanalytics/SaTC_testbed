@@ -76,7 +76,7 @@ if [ "$1" == "-edu" ]; then
 else 
   echo "network={" >> $output
   echo "    ssid=\"$wifi_username\"" >> $output
-  echo "    password=\"$wifi_password\"" >> $output
+  echo "    psk=\"$wifi_password\"" >> $output
   echo "    key_mgmt=WPA-PSK" >> $output
   echo "}" >> $output
 fi
