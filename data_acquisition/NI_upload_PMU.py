@@ -53,36 +53,49 @@ while True:
     # value_list is uploaded to influxdb
     value_list = data_array
     value_list = df_int_to_float(value_list)
-    value_list = value_list.to_numpy().transpose()
+    value_list = np.array(value_list)
 
     features = feature_extract(value_list, f_s=5000)
-    writeData = []
     # ts = datetime.datetime.strptime(start_time, time_format)
     # ts = tz_NY.localize(ts)
     currentTime = datetime.datetime.now(tz_NY)
     timestamp = int(currentTime.timestamp() * 1000000000)
-    for i in range(len(value_list[0])):
-        # timestamp = int(ts.timestamp() * 1000) # epoch time
-        writeData.append(
-            {
-                "measurement": measurement,
-                "tags": {"location": [location]},
-                "fields": {
-                    "channel_0": value_list[0][i],
-                    "channel_1": value_list[1][i],
-                    "channel_2": value_list[2][i],
-                    "channel_3": value_list[3][i],
-                    "channel_4": value_list[4][i],
-                    "channel_5": value_list[5][i],
-                },
-                "time": timestamp,
-            }
-        )
-        # timestamp = timestamp + 1000000
-        timestamp = timestamp + 5000000 # 0.0005 second
+    writeData = [
+        {
+            "measurement": measurement,
+            "tags": {"location": [location]},
+            "fields": {
+                "sensor1_DC_mag": value_list[0][0],
+                "sensor1_DC_freq": value_list[1][0],
+                "sensor1_DC_angle": value_list[2][0],
+                "sensor1_DC_thd": value_list[3][0],
+                "sensor1_AC_mag": value_list[4][0],
+                "sensor1_AC_freq": value_list[5][0],
+                "sensor1_AC_angle": value_list[6][0],
+                "sensor1_AC_thd": value_list[7][0],
+                "sensor2_DC_mag": value_list[8][0],
+                "sensor2_DC_freq": value_list[9][0],
+                "sensor2_DC_angle": value_list[10][0],
+                "sensor2_DC_thd": value_list[11][0],
+                "sensor2_AC_mag": value_list[12][0],
+                "sensor2_AC_freq": value_list[13][0],
+                "sensor2_AC_angle": value_list[14][0],
+                "sensor2_AC_thd": value_list[15][0],
+                "sensor3_DC_mag": value_list[16][0],
+                "sensor3_DC_freq": value_list[17][0],
+                "sensor3_DC_angle": value_list[18][0],
+                "sensor3_DC_thd": value_list[19][0],
+                "sensor3_AC_mag": value_list[20][0],
+                "sensor3_AC_freq": value_list[21][0],
+                "sensor3_AC_angle": value_list[22][0],
+                "sensor3_AC_thd": value_list[23][0],
+            },
+            "time": timestamp,
+        }
+    ]
+
     client.write_points(
         writeData, time_precision="n", batch_size=10000, protocol="json"
     )
-    value_list = []
 
 server.close()
