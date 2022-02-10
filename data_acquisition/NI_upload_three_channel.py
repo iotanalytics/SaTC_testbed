@@ -9,7 +9,7 @@ import threading
 from influxdb import InfluxDBClient
 import warnings
 import pandas as pd
-from wavefrom_to_PMU import feature_extract
+from waveform_to_PMU import feature_extract
 
 warnings.filterwarnings("ignore")
 
@@ -70,9 +70,9 @@ while True:
                     "channel_0": value_list[0][i],
                     "channel_1": value_list[1][i],
                     "channel_2": value_list[2][i],
-                    "channel_3": value_list[0][i],
-                    "channel_4": value_list[1][i],
-                    "channel_5": value_list[2][i],
+                    "channel_3": value_list[3][i],
+                    "channel_4": value_list[4][i],
+                    "channel_5": value_list[5][i],
                 },
                 "time": timestamp,
             }
