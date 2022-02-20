@@ -12,5 +12,8 @@ chmod a+x scan_attack.sh
 ./scan_attack.sh ip1 ip2 ip3 ip4
 ```
 
+## An example of Grafana panel
+This screenshot showing an example of Grafana panel of a Raspberry Pi's energy consumption.
+![Grafana Panel](pics/Grafana_screenshot.png "Grafana Panel")
 ## Notes:
 Before launching the attack, please make sure to save the public keys from different Pis into every Pi's known host file, which locates in the directory ```~/.ssh/known_hosts```.
