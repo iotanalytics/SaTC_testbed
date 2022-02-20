@@ -6,6 +6,7 @@ We use **collectd** to collect those energy consumption data and push to the Inf
 
 ## Usage:
 ```bash
+cd main_PC
 chmod a+x scan_attack.sh
 
 # The arguments are the victims' IP addresses of the stepstone attack. The number is arbitrary.
