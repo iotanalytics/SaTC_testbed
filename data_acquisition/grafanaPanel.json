@@ -1,0 +1,1462 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 47,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000006"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "displayName": "Status",
+          "mappings": [
+            {
+              "options": {
+                "0.04": {
+                  "index": 0,
+                  "text": "anomaly"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0.04
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 7,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.3.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000006"
+          },
+          "groupBy": [],
+          "measurement": "NI_Waveform",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sensor1_AC_mag"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "['sensorweb128']"
+            }
+          ]
+        }
+      ],
+      "title": "Panel Title",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000006"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "sensor1_DC",
+                  "sensor1_AC"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "alias": "sensor1_AC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000006"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "NI_Waveform",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sensor1_AC_mag"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "['sensorweb128']"
+            }
+          ]
+        },
+        {
+          "alias": "sensor2_AC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000006"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "NI_Waveform",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sensor2_AC_mag"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "['sensorweb128']"
+            }
+          ]
+        },
+        {
+          "alias": "sensor3_AC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000006"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "NI_Waveform",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sensor3_AC_mag"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "['sensorweb128']"
+            }
+          ]
+        },
+        {
+          "alias": "sensor1_DC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000006"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "NI_Waveform",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sensor1_DC_mag"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "['sensorweb128']"
+            }
+          ]
+        },
+        {
+          "alias": "sensor2_DC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000006"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "NI_Waveform",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "E",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sensor2_DC_mag"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "['sensorweb128']"
+            }
+          ]
+        },
+        {
+          "alias": "sensor3_DC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000006"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "NI_Waveform",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "F",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sensor3_DC_mag"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "['sensorweb128']"
+            }
+          ]
+        },
+        {
+          "alias": "sensor4_AC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000006"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "NI_Waveform",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "G",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sensor4_AC_mag"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "['sensorweb128']"
+            }
+          ]
+        },
+        {
+          "alias": "sensor4_DC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000006"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "NI_Waveform",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "H",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sensor4_DC_mag"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "['sensorweb128']"
+            }
+          ]
+        }
+      ],
+      "title": "Current Magnitude",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000006"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "sensor1_DC",
+                  "sensor1_AC"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 17
+      },
+      "id": 3,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "alias": "sensor1_AC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000006"
+          },
+          "groupBy": [],
+          "measurement": "NI_Waveform",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sensor1_AC_freq"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "['sensorweb128']"
+            }
+          ]
+        },
+        {
+          "alias": "sensor2_AC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000006"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "NI_Waveform",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sensor2_AC_freq"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "['sensorweb128']"
+            }
+          ]
+        },
+        {
+          "alias": "sensor3_AC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000006"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "NI_Waveform",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sensor3_AC_freq"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "['sensorweb128']"
+            }
+          ]
+        },
+        {
+          "alias": "sensor1_DC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000006"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "NI_Waveform",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sensor1_DC_freq"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "['sensorweb128']"
+            }
+          ]
+        },
+        {
+          "alias": "sensor2_DC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000006"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "NI_Waveform",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "E",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sensor2_DC_freq"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "['sensorweb128']"
+            }
+          ]
+        },
+        {
+          "alias": "sensor4_DC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000006"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "NI_Waveform",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "F",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sensor4_DC_freq"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "['sensorweb128']"
+            }
+          ]
+        },
+        {
+          "alias": "sensor4_AC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000006"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "NI_Waveform",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "G",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sensor4_AC_freq"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "['sensorweb128']"
+            }
+          ]
+        }
+      ],
+      "title": "Current Frequency",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000006"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 26
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "alias": "sensor1_AC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000006"
+          },
+          "groupBy": [],
+          "measurement": "NI_Waveform",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sensor1_AC_angle"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "['sensorweb128']"
+            }
+          ]
+        },
+        {
+          "alias": "sensor2_AC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000006"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "NI_Waveform",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sensor2_AC_angle"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "['sensorweb128']"
+            }
+          ]
+        },
+        {
+          "alias": "sensor3_AC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000006"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "NI_Waveform",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sensor3_AC_angle"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "['sensorweb128']"
+            }
+          ]
+        },
+        {
+          "alias": "sensor1_DC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000006"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "NI_Waveform",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sensor1_DC_angle"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "['sensorweb128']"
+            }
+          ]
+        },
+        {
+          "alias": "sensor2_DC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000006"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "NI_Waveform",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "E",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sensor2_DC_angle"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "['sensorweb128']"
+            }
+          ]
+        },
+        {
+          "alias": "sensor3_DC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000006"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "NI_Waveform",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "F",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sensor3_DC_angle"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "['sensorweb128']"
+            }
+          ]
+        },
+        {
+          "alias": "sensor4_AC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000006"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "NI_Waveform",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "G",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sensor4_AC_angle"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "['sensorweb128']"
+            }
+          ]
+        },
+        {
+          "alias": "sensor4_DC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000006"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "NI_Waveform",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "H",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sensor4_DC_angle"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "['sensorweb128']"
+            }
+          ]
+        }
+      ],
+      "title": "Current Phase Angle",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "000000006"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 35
+      },
+      "id": 5,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "alias": "sensor1_AC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000006"
+          },
+          "groupBy": [],
+          "measurement": "NI_Waveform",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sensor1_AC_thd"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "['sensorweb128']"
+            }
+          ]
+        },
+        {
+          "alias": "sensor2_AC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000006"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "NI_Waveform",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sensor2_AC_thd"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "['sensorweb128']"
+            }
+          ]
+        },
+        {
+          "alias": "sensor3_AC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000006"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "NI_Waveform",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sensor3_AC_thd"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "['sensorweb128']"
+            }
+          ]
+        },
+        {
+          "alias": "sensor1_DC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000006"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "NI_Waveform",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sensor1_DC_thd"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "['sensorweb128']"
+            }
+          ]
+        },
+        {
+          "alias": "sensor2_DC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000006"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "NI_Waveform",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "E",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sensor2_DC_thd"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "['sensorweb128']"
+            }
+          ]
+        },
+        {
+          "alias": "sensor3_DC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000006"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "NI_Waveform",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "F",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sensor3_DC_thd"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "['sensorweb128']"
+            }
+          ]
+        },
+        {
+          "alias": "sensor4_DC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000006"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "NI_Waveform",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "G",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sensor4_DC_thd"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "['sensorweb128']"
+            }
+          ]
+        },
+        {
+          "alias": "sensor4_AC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "000000006"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "NI_Waveform",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "H",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sensor4_AC_thd"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "['sensorweb128']"
+            }
+          ]
+        }
+      ],
+      "title": "Current THD",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "5s",
+  "schemaVersion": 34,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "2022-02-10T04:16:23.961Z",
+    "to": "2022-02-10T04:18:14.713Z"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "SaTC Testbed Sensor data (PMU)",
+  "uid": "ZahjZYanz",
+  "version": 10,
+  "weekStart": ""
+}
