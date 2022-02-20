@@ -10,6 +10,20 @@ chmod a+x scan_attack.sh
 
 # The arguments are the victims' IP addresses of the stepstone attack. The number is arbitrary.
 ./scan_attack.sh ip1 ip2 ip3 ip4
+
+# Control the motor without stepstone attack
+# python publisher.py motor_nubmer command_number
+# e.g. spin the motor 1:
+python publisher.py 1 5
+
+# Motorboard Commands:
+# 0 - Stop Motor
+# 1 - Speed Up Motor (40 rad/s per increase)
+# 2 - Slow Down Motor (40 rad/s per decrease)
+# 3 - Stop Motor & Turn off program (light switches from blue to green)
+# 4 - Clear Faults
+# 5 - Make connection, turn on program (light switches from green to blue), and start motor in default mode (speed 70 rads/s)
+# 6 - Stop Motor, Turn off program, stop/break connection to board.
 ```
 
 ## An example of Grafana panel
