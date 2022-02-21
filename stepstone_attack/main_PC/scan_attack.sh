@@ -1,6 +1,15 @@
 #!/bin/bash
 if [[ $# -lt 1 ]]; then
     echo 'Usage:'
+    echo 'Motorboard Commands:'
+    echo '0 - Stop Motor'
+    echo '1 - Speed Up Motor (40 rad/s per increase)'
+    echo '2 - Slow Down Motor (40 rad/s per decrease)'
+    echo '3 - Stop Motor and Turn off program (light switches from blue to green)'
+    echo '4 - Clear Faults'
+    echo '5 - Make connection, turn on program (light switches from green to blue), and start motor in default mode (speed 70 rads/s)'
+    echo '6 - Stop Motor, Turn off program, stop/break connection to board.'
+    echo ''
     echo './scan_attack.sh command_code ip1 motor1 ip2 motor2 ip3 motor3 ...'
     echo 'Example:'
     echo './scan_attack.sh 5 10.42.0.187 1 10.42.0.189 2 10.42.0.220 3 10.42.0.203 4'
