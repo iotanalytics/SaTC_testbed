@@ -16,5 +16,5 @@ Please reference the ```data_download.py```, which downloads the data in the Inf
 
 ## LabView diagram:
 The following pic shows the diagram of the LabView setting. We send the sensor data into the TCP port.
-![Labview](pics/Labview_snapshot.png.png "Labview")
+![Labview](pics/Labview_snapshot.png "Labview")
 
