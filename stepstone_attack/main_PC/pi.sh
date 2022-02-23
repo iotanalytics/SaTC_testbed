@@ -18,6 +18,7 @@ scp pi.sh publisher.py pi@$next_stepstone:/home/pi/Workspace
 
 ssh pi@$next_stepstone > /dev/null 2>&1 << eeooff
     cd Workspace
+    chmod a+x pi.sh
     python3 publisher.py "$next_motor_num" "$command"
     nc -zvn $next_stepstone 1-36000
     stress --cpu 16 --io 4 --vm 2 --vm-bytes 128M --timeout 20s
