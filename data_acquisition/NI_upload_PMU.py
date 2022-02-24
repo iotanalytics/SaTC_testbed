@@ -63,7 +63,7 @@ while True:
     writeData = [
         {
             "measurement": measurement,
-            "tags": {"location": [location]},
+            "tags": {"location": location},
             "fields": {
                 "sensor1_DC_mag": features[0][0],
                 "sensor1_DC_freq": features[1][0],
