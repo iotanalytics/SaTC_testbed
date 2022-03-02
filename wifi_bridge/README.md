@@ -14,3 +14,9 @@ e.g. ```sudo ./ap_setup_script.sh -edu PAWS-Secure XXXXXXX XXXXXX sensorweb sens
 sudo ./ap_setup_script.sh wifi_username wifi_password hotspot_username hotspot_password
 ```
 e.g. ```Usage: sudo ./ap_setup_script.sh Existing_wifi Existing_wifi_password sensorweb sensorweb128```
+
+### TODO:
+```
+echo 'sudo create_ap wlan2 eth0' $hotspot_username $hotspot_password >> $automatic_local_file
+```
+Here eth0 may need to be wlan1.
