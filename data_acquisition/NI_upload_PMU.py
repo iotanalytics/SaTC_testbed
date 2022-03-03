@@ -31,7 +31,7 @@ port = 8086
 pwd = "sensorweb"
 dbName = "testdb"
 measurement = "NI_Waveform"
-location = "sensorweb128"
+location = "sensorweb"
 isSSL = True
 client = InfluxDBClient(
     host=host, port=port, username=username, password=pwd, database=dbName, ssl=isSSL
