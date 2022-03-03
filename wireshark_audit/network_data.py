@@ -5,11 +5,13 @@ from datetime import datetime
 from threading import Timer
 from influxdb import InfluxDBClient
 isSSL = True
-client = InfluxDBClient(host="sensorwebturing.engr.uga.edu", port=8086, username="test", password='sensorweb', ssl = isSSL)
+client = InfluxDBClient(host="sensorwebturing.engr.uga.edu", port=8086, username="test", password="sensorweb", ssl = isSSL)
 
 currentTime = datetime.now()
 timestamp = int(currentTime.timestamp()*1000000000)
 _flag = True
+import warnings
+warnings.filterwarnings("ignore")
 
 ### start a timer here refer: https://github.com/SongClass/SimTCP 
 
@@ -19,34 +21,36 @@ class RepeatTimer(Timer):
         while not self.finished.wait(self.interval):
             self.function(*self.args, **self.kwargs)
 
-def wiresharkRawData(protocol, src_MAC_Address, dst_MAC_Address, src_ip, dst_ip, src_port, dst_port, ttt, length):
-        client.switch_database("WiresharkRawData")
-        json_body = [
-            {
-                "measurement": "WiresharkRawData",
-                "tags": {
-                    "Protocol":protocol,
-                    "Source MAC": src_MAC_Address,
-                    "Destination MAC": dst_MAC_Address,
-                    "Source IP":src_ip,
-                    "Destination IP":dst_ip,
-                    "Source Port": src_port,
-                    "Destination Port": dst_port
-                },
-                "fields":{
-                    "Length": length
-                },
-                "time":ttt
-            }
+#def wiresharkRawData(protocol, src_MAC_Address, dst_MAC_Address, src_ip, dst_ip, src_port, dst_port, ttt, length):
+#        client.switch_database("WiresharkRawData")
+#        json_body = [
+#            {
+#                "measurement": "WiresharkRawData",
+#                "tags": {
+#                    "Protocol":protocol,
+#                    "Source MAC": src_MAC_Address,
+#                    "Destination MAC": dst_MAC_Address,
+#                    "Source IP":src_ip,
+#                    "Destination IP":dst_ip,
+#                    "Source Port": src_port,
+#                    "Destination Port": dst_port
+#                },
+#                "fields":{
+#                    "Length": length
+#                },import warnings
+#                "time":ttt
+#            }
+#
+#        ]
+#        client.write_points(json_body, time_precision='n')
 
-        ]
-        client.write_points(json_body, time_precision='n')
-
-def calcData(calcDict):
+def calcData(temp):
     print(" CalcData running after 5 seconds")
     global _flag
     client.switch_database('CalcData')
-    for key, value in calcDict.items():
+
+    print(f"****************Length****************: {len(temp)}")
+    for key, value in temp.items():
         json_body = [
             {
                 "measurement": "CalcData",
@@ -61,9 +65,9 @@ def calcData(calcDict):
 
         ]       
         client.write_points(json_body, time_precision='n')
+        print("************************************************************")
         
     _flag = True
-
             
 
 def main():
@@ -71,6 +75,7 @@ def main():
     calcDict = {}
     for something in sys.stdin:
         packet = something.split()
+        print(packet)
         time = int(float(packet[0]))
         protocol = str(packet[1])
         if len(packet) == 9:
@@ -81,6 +86,22 @@ def main():
             dst_ip = packet[6]
             src_port = packet[7]
             dst_port = packet[8]
+        elif len(packet) == 5 or protocol == 'ARP':
+            src_MAC_Address = packet[2]
+            dst_MAC_Address = packet[3]
+            length = int(packet[4])
+            src_ip = "FFFFFF"
+            dst_ip = "FFFFFF"
+            src_port = 0
+            dst_port = 0
+        elif len(packet) == 7 and protocol == "IGMPv3":
+            src_MAC_Address = packet[2]
+            dst_MAC_Address = packet[3]
+            length = int(packet[4])
+            src_ip = packet[5]
+            dst_ip = packet[6]
+            src_port = 0
+            dst_port = 0
         elif len(packet) < 9 and protocol == "MDNS":
             src_MAC_Address = packet[2]
             dst_MAC_Address = packet[3]
@@ -89,18 +110,26 @@ def main():
             dst_ip = "FFFFFF"
             src_port = packet[5]
             dst_port = packet[6]
-        elif protocol == "ADwin":
+        elif protocol == "ADwin" and len(packet) < 7:
             src_MAC_Address = packet[3]
             dst_MAC_Address = packet[4]
             length = int(packet[5])
-            src_ip = packet[6]
-            dst_ip = packet[7]
-            src_port = packet[8]
-            dst_port = packet[9]
+            src_ip = "FFFFFF"
+            dst_ip = "FFFFFF"
+            src_port = 0
+            dst_port = 0
+        elif protocol == "NXP" and len(packet) == 11:
+            src_MAC_Address = packet[4]
+            dst_MAC_Address = packet[5]
+            length = int(packet[6])
+            src_ip = int(packet[7])
+            dst_ip = int(packet[8])
+            src_port = int(packet[9])
+            dst_port = int(packet[10])
         else:
-            src_MAC_Address = packet[2]
-            dst_MAC_Address = packet[3]
-            length = int(packet[4])
+            src_MAC_Address = packet[3]
+            dst_MAC_Address = packet[4]
+            length = int(packet[5])
             src_ip = "FFFFFF"
             dst_ip = "FFFFFF"
             src_port = 0
@@ -115,14 +144,16 @@ def main():
         else:
             calcDict.update({protocol:[1, length]})
         
-        wiresharkRawData(protocol, src_MAC_Address, dst_MAC_Address, src_ip, dst_ip, src_port, dst_port, ttt, length)
+        #wiresharkRawData(protocol, src_MAC_Address, dst_MAC_Address, src_ip, dst_ip, src_port, dst_port, ttt, length)
         if _flag:
-            t5 = Timer(5, calcData, [calcDict])
+            temp = calcDict.copy()
+            calcDict.clear()
+            t5 = Timer(5, calcData, [temp])
             t5.start()
             _flag = False
-            calcDict.clear()
+            
         
-
+        #print("Success!")
      
 
 if __name__ == '__main__':
