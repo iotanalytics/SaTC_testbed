@@ -1,4 +1,4 @@
-Using this script, all calculated network data can be digested into InfluxDB. Packets using protocols such as ARP, TCP, UDP, DNS can be easily captured and processsed.
+Using this script, all network data, packet count and traffic per protocol can be digested into InfluxDB. Packets using protocols such as ARP, TCP, UDP, DNS can be easily captured and processsed.
 
 
 Dependencies needed to be installed - 
