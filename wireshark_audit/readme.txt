@@ -13,7 +13,7 @@ Instructions to run network_data.py:
 
 1. Run the following command on the terminal after installing TShark - "tshark -D". This will list all the interfaces on which we can capture. 
 
-2. Run the following command on the terminal to start the script - "stdbuf -i0 -oL -e0 tshark -i [name of interface] -q -T fields -e frame.time_relative -e _ws.col.Protocol -e eth.src -e eth.dst -e frame.len -e ip.src -e ip.dst -e tcp.srcport -e tcp.dstport -e udp.srcport -e udp.dstport | python /home/sensorweb/NetworkData.py"
+2. Run the following command on the terminal to start the script - "stdbuf -i0 -oL -e0 tshark -i [name of interface] -q -T fields -e frame.time_relative -e _ws.col.Protocol -e frame.len -e eth.src -e eth.dst -e ip.src -e ip.dst -e tcp.srcport -e tcp.dstport -e udp.srcport -e udp.dstport | python /home/sensorweb/NetworkData.py"
 
 3. If the python script is in a different directory, please make sure you enter the full path to the script, as in the above example.
 
