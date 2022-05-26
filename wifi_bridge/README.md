@@ -16,9 +16,9 @@ e.g. ```sudo ./ap_setup_script.sh -edu PAWS-Secure XXXXXXX XXXXXX sensorweb sens
 
 ### regular WiFi:
 ```bash
-sudo ./ap_setup_script.sh wifi_username wifi_password hotspot_username hotspot_password
+sudo ./ap_setup_script.sh -wpa2 wifi_username wifi_password hotspot_username hotspot_password
 ```
-e.g. ```Usage: sudo ./ap_setup_script.sh Existing_wifi Existing_wifi_password sensorweb sensorweb128```
+e.g. ```Usage: sudo ./ap_setup_script.sh -wpa2 Existing_wifi Existing_wifi_password sensorweb sensorweb128```
 
 ### TODO:
 ```
