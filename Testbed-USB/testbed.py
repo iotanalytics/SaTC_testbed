@@ -171,22 +171,20 @@ async def main():
         file_modification = command_file.stat().st_mtime
         if  file_modification > last_modification:
             last_modification = file_modification
-            # get first character from file            
- 
+            # get command from file            
+            """
             locals()[m_file] = open(file_name, "r")
             for line in locals()[m_file].readlines(): 
-	            motor_command = line[0] 
+	            motor_command = line #[0] 
 	            break
             locals()[m_file].close()
             """
-            with open(file_name) as f1:
-                if channel == '1':                
-                    motor_command = f1.readline()
-                    f1.close()
-                else:
-                    print("Incorrect channel number was enter.  Program exiting.")
-                    exit(1)
+            with open(file_name,"r") as f1:
+                content = f1.read()
+                motor_command = str(content.split('\n', 1)[0])
+                print("motor command is:",motor_command)                
             #"""
+
             # Command Logic
             if motor_command == '0': # Stop Motor
                 await SendRequest(jrpc, 'WriteVariable', 'Speed Required', 0)
@@ -234,7 +232,7 @@ async def main():
             elif motor_command == '6': # Close COM port
                 await SendRequest(jrpc, 'StopComm')
             # Set motor speed to a specific value between 80 and 314 rad/s
-            elif motor_command >= '80' and motor_command <= '314':
+            elif int(motor_command) >= 80 and int(motor_command) <= 314:
                 desired_speed = int(motor_command)
                 current_speed = await  SendRequest(jrpc, 'ReadVariable', 'Speed Required')
                 if current_speed < 0:
@@ -254,7 +252,7 @@ async def main():
                         time.sleep(1)
                     await SendRequest(jrpc, 'WriteVariable', 'Speed Required', desired_speed)
             # Set motor speed to a specific value between -80 and -314 rad/s
-            elif motor_command >= '-314' and motor_command <= '80':
+            elif int(motor_command) >= -314 and int(motor_command) <= -80:
                 desired_speed = int(motor_command)
                 current_speed = await  SendRequest(jrpc, 'ReadVariable', 'Speed Required')
                 if current_speed > 0:
@@ -277,7 +275,7 @@ async def main():
                 motor_command = ''
                 # Do nothing
             else:
-                print("An invalid command was entered")
+                print("An invalid command was entered:",motor_command)
     #"""
 
  
