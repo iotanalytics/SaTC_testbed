@@ -9,7 +9,7 @@ if [[ $# -lt 1 ]]; then
     echo '4 - Clear Faults'
     echo '5 - Make connection, turn on program (light switches from green to blue), and start motor in default mode (speed 70 rads/s)'
     echo '6 - Stop Motor, Turn off program, stop/break connection to board.'
-    echo ''
+    echo 'for a specific speed, just enter any integer values between -314 to -80 or any values between 80 to 314'
     echo './scan_attack.sh command_code ip1 motor1 ip2 motor2 ip3 motor3 ...'
     echo 'Example:'
     echo './scan_attack.sh 5 10.42.0.187 1 10.42.0.189 2 10.42.0.220 3 10.42.0.203 4'
