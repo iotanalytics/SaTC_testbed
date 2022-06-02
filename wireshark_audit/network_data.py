@@ -5,7 +5,7 @@ from datetime import datetime
 from threading import Timer
 from influxdb import InfluxDBClient
 isSSL = True
-client = InfluxDBClient(host="sensorwebturing.engr.uga.edu", port=8086, username="test", password="sensorweb", ssl = isSSL)
+client = InfluxDBClient(host="sensorwebdata.engr.uga.edu", port=8086, username="test", password="sensorweb", ssl = isSSL)
 
 currentTime = datetime.now()
 timestamp = int(currentTime.timestamp()*1000000000)
