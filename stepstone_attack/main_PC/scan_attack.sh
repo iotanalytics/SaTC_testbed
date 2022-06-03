@@ -12,7 +12,7 @@ if [[ $# -lt 1 ]]; then
     echo 'for a specific speed, just enter any integer values between -314 to -80 or any values between 80 to 314'
     echo './scan_attack.sh command_code ip1 motor1 ip2 motor2 ip3 motor3 ...'
     echo 'Example:'
-    echo './scan_attack.sh 5 10.42.0.187 1 10.42.0.189 2 10.42.0.220 3 10.42.0.203 4'
+    echo './scan_attack.sh 5 172.22.114.107 1 172.22.114.108 2 172.22.114.109 3 172.22.114.90 4'
     exit 1
 fi
 
