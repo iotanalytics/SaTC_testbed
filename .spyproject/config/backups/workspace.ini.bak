@@ -4,7 +4,7 @@ save_data_on_exit = True
 save_history = True
 save_non_project_files = False
 project_type = 'empty-project-type'
-recent_files = ['Testbed-USB\\testbed.py']
+recent_files = ['Testbed-USB\\testbed.py', 'data_acquisition\\README.md', 'Testbed-USB\\README.md', 'data_acquisition\\waveform_to_PMU.py', 'wireshark_audit\\readme.txt']
 
 [main]
 version = 0.2.0
