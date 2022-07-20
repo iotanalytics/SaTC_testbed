@@ -1,6 +1,8 @@
 # Updated 
 # ! stdbuf -i0 -oL -e0 tshark -i enp0s31f6 -q -T fields -e frame.time_relative -e _ws.col.Protocol -e eth.src -e eth.dst -e frame.len -e ip.src -e ip.dst -e tcp.srcport -e tcp.dstport -e udp.srcport -e udp.dstport | python /home/sensorweb/Desktop/SaTC_testbed/wireshark_audit/network_data.py
 
+# stdbuf -i0 -oL -e0 tshark -i enp0s31f6 -q -T fields -e frame.time_relative -e _ws.col.Protocol -e _ws.col.Length -e eth.src -e eth.dst -e ip.src -e ip.dst -e tcp.srcport -e tcp.dstport -e udp.srcport -e udp.dstport | python /home/sensorweb/Desktop/SaTC_testbed/wireshark_audit/network_data.py
+
 import sys
 from datetime import datetime
 from threading import Timer
