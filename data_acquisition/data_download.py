@@ -6,7 +6,7 @@ import pandas as pd
 host = "sensorweb.us"
 username = "test"
 port = 8086
-pwd = ""
+pwd = "sensorweb"
 dbName = "testdb"
 measurement = "NI_Waveform"
 location = "bowenRoom"

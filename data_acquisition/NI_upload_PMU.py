@@ -55,7 +55,7 @@ while True:
     value_list = df_int_to_float(value_list)
     value_list = np.array(value_list)
 
-    features = feature_extract(value_list, f_s=5000)
+    features = feature_extract(value_list, f_s=10000)#5000)
     # ts = datetime.datetime.strptime(start_time, time_format)
     # ts = tz_NY.localize(ts)
     currentTime = datetime.datetime.now(tz_NY)
