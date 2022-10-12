@@ -33,7 +33,7 @@ def main():
 
     writeData = [
         {
-            "measurement": measurement,
+            "measurement": measurement,-ssl -unsafeSsl -host sensorwebdata.engr.uga.edu
             "tags": {"data_label": data_label},
             "fields":{
                 "value":1,
@@ -48,3 +48,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# How to transfer from influxdb to csv file
+# This shows an example of export the thermal file from database to csv file.
+# influx -ssl -unsafeSsl -host sensorwebdata.engr.uga.edu -database 'collectd_pi2' -execute "SELECT * from thermal_value where time >= '2022-06-02T00:00:00Z' AND time <= '2022-06-11T00:00:00Z'" -format csv > thermal_pi2.csv
