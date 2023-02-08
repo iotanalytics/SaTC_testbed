@@ -2,7 +2,9 @@
 from scipy.signal import butter, lfilter
 from scipy import signal
 from datetime import datetime, date
-from influxdb import InfluxDBClient
+import influxdb_client
+from influxdb_client import InfluxDBClient, Point, WritePrecision
+from influxdb_client.client.write_api import SYNCHRONOUS, ASYNCHRONOUS
 import numpy
 import random
 import time
@@ -28,16 +30,14 @@ from dateutil.parser import parse
 import webbrowser
 from util import * 
 
-# ip = "sensorweb.us"
-# port = "8086"
-# user = "test"
-# passw = "sensorweb"
-# db = "shake"
-ip = "sensorwebdata.engr.uga.edu" #"sensorwebturing.engr.uga.edu"  
-port = "8086"
-user = "test"
-passw = "sensorweb128"
-db = "satcdb"
+#influxdb config
+token = "hoQM1LfukZIx5iUCmaKSUThba9yz8WWRp-vMxCbS3JaIpP7JLd7MDNZ4aU67cP7tgA4WP282dcIOaVGxduCKww=="
+org = "lab711"
+bucket = "testbed"
+url = "sensorwebdata.engr.uga.edu:8086"
+measurement = "detection_result"
+location = "lab711"
+
 
 rip = ip
 debug = True; #str2bool(config.get('general', 'debug'))
