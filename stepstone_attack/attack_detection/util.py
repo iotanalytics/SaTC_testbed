@@ -14,6 +14,9 @@ import pytz
 from influxdb import InfluxDBClient
 import operator
 
+# python API client for influx 2.x
+import influxdb_client
+from influxdb_client.client.write_api import SYNCHRONOUS, ASYNCHRONOUS
 
 # This function converts the time string to epoch time xxx.xxx (second.ms).
 # Example: time = "2020-08-13T02:03:00.200", zone = "UTC" or "America/New_York"
@@ -76,7 +79,36 @@ def write_influx(influx, unit, table_name, data_name, data, start_timestamp, fs)
         # print(http_post)
         print("Write to influx: ", table_name, data_name, count, data)
         subprocess.call(http_post, shell=True)
-
+        
+def write_influx2(influx, unit, table_name, data_name, data, start_timestamp, fs):
+    timestamp = start_timestamp
+    bucket = influx['bucket']
+    org = influx['org']
+    token = influx['token']
+    url = influx['ip'] + ":8086"
+    start = str(int(start_timestamp*10e8))
+    
+    max_size = 1
+    count = 0
+    total = len(data)
+    
+    client = influxdb_client.InfluxDBClient(
+        url=url,
+        token=token,
+        org=org
+    )
+    write_api = client.write_api(write_options=SYNCHRONOUS)
+    
+    for value in data:
+        count += 1
+        if count >= max_size:
+            print("Write to influx: ", table_name, data_name, count)
+            p = influxdb_client.Point(table_name).tag("location", unit).field(data_name, value).time(start)
+            write_api.write(bucket=bucket, org=org, record=p)
+            total = total - count
+            count = 0
+        start += 1 / fs
+        
 # This function read an array of data from influxdb.
 # influx - the InfluxDB info including ip, db, user, pass. Example influx = {'ip': 'https://sensorweb.us', 'db': 'testdb', 'user':'test', 'passw':'sensorweb'}
 # dataname - the dataname such as temperature, heartrate, etc
@@ -108,5 +140,49 @@ def read_influx(influx, unit, table_name, data_name, start_timestamp,pre_len,sta
     # print(times)
 
     data = values #np.array(values)
+
+    return data, times
+
+
+def read_influx2(influx, unit, table_name, data_name, start_timestamp,pre_len,startEpoch):
+    
+    bucket = influx['bucket']
+    org = influx['org']
+    token = influx['token']
+    url = influx['ip'] + ":8086"
+    start = str(int(start_timestamp*10e8))
+    
+    client = influxdb_client.InfluxDBClient(
+        url=url,
+        token=token,
+        org=org
+    )
+    
+    # client = InfluxDBClient(influx['ip'].split('//')[1], '8086', influx['user'], influx['passw'], influx['db'],  ssl=True)
+    #client = InfluxDBClient('https://sensorwebturing.engr.uga.edu', '8086', influx['user'], influx['passw'], influx['db'],  ssl=True)
+    #query = 'SELECT "' + data_name + '" FROM "' + table_name + '" WHERE "location" = \''+unit+'\' AND time >= '+ str(int(start_timestamp*10e8))+' AND time <= '+str(int(end_timestamp*10e8))
+    if(start_timestamp==startEpoch):
+        time.sleep(30)
+    else:
+        time.sleep(3)
+            
+    query_api = client.query_api()
+    query = f' from(bucket:{bucket})\
+    |> range(start: {start})\
+    |> filter(fn:(r) => r._measurement == {table_name})\
+    |> filter(fn:(r) => r._field == {data_name} )'
+    
+    result = query_api.query(org=org, query=query)
+    data, times = [], []
+    cnt = 0
+    for table in result:
+        if cnt == pre_len:
+            break
+        for record in table.records:
+            data.append(record.get_value())
+            times.append(record.get_time())
+            cnt += 1
+            if cnt == pre_len:
+                break
 
     return data, times
