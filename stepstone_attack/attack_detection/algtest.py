@@ -3,7 +3,6 @@ from scipy.signal import butter, lfilter
 from scipy import signal
 from datetime import datetime, date
 import influxdb_client
-from influxdb_client import InfluxDBClient, Point, WritePrecision
 from influxdb_client.client.write_api import SYNCHRONOUS, ASYNCHRONOUS
 import numpy
 import random
@@ -31,15 +30,21 @@ import webbrowser
 from util import * 
 
 #influxdb config
-token = "hoQM1LfukZIx5iUCmaKSUThba9yz8WWRp-vMxCbS3JaIpP7JLd7MDNZ4aU67cP7tgA4WP282dcIOaVGxduCKww=="
+token = "0ML4vBa-81dGKI3_wD-ReiSRdLggdJPXKoTKLPITBcOZXl8MJh7W8wFSkNUNM_uPS9mJpzvBxUKfKgie0dHiow=="
 org = "lab711"
 bucket = "testbed"
 url = "sensorwebdata.engr.uga.edu:8086"
-measurement = "detection_result"
-location = "lab711"
+measurement = "detection_results"
 
+"""
+client = influxdb_client.InfluxDBClient(
+    url=url,
+    token=token,
+    org=org
+)
+#"""
 
-rip = ip
+###rip = ip
 debug = True; #str2bool(config.get('general', 'debug'))
 verbose = True
 
@@ -49,8 +54,8 @@ verbose = True
 # src = {'ip': 'https://sensorwebdata.engr.uga.edu', 'db': 'satcdb', 'user':'test', 'passw':'sensorweb128'}
 # dest = {'ip': 'https://sensorwebdata.engr.uga.edu', 'db': 'satcdb', 'user':'test', 'passw':'sensorweb128'}
 
-src = {'ip': 'https://sensorwebdata.engr.uga.edu', 'db': 'satcdb', 'user':'test', 'passw':'sensorweb128'}
-dest = {'ip': 'https://sensorwebdata.engr.uga.edu', 'db': 'satcdb', 'user':'test', 'passw':'sensorweb128'}
+# src = {'ip': 'https://sensorwebdata.engr.uga.edu', 'db': 'satcdb', 'user':'test', 'passw':'sensorweb128'}
+# dest = {'ip': 'https://sensorwebdata.engr.uga.edu', 'db': 'satcdb', 'user':'test', 'passw':'sensorweb128'}
 
 def str2bool(v):
   return v.lower() in ("true", "1", "https", "t")
@@ -67,7 +72,7 @@ def main():
     quit()
 
  # Parameters from Config file
- db           = 'satcdb' # config.get('general', 'dbraw')
+ db           = bucket #'satcdb' # config.get('general', 'dbraw')
  buffersize   = 30 # config.get('general', 'buffersize')
  samplingrate = 5 # int(config.get('general', 'samplingrate'))
  hrTimeWindow    = 30 # int(config.get('main', 'hrTimeWindow'))
@@ -95,7 +100,7 @@ def main():
 
  alg.logpath = ""
 # Getting the user input parameters
- global ip, rip
+#global ip, rip
 
  unit = sys.argv[1]
 
@@ -155,10 +160,13 @@ def main():
 #  webbrowser.open(url, new=2)
 
  
- print("client:",ip,port, user, passw, db, ssl)
+ #print("client:",ip,port, user, passw, db, ssl)
  try:
-   client = InfluxDBClient(ip, port, user, passw, db, ssl)
-   print("client:",ip,port, user, passw, db, ssl)
+   client = influxdb_client.InfluxDBClient(
+    url=url,
+    token=token,
+    org=org
+)
  except Exception as e:
    print("main(), DB access error:")
    print("Error", e)
@@ -187,6 +195,7 @@ def main():
  #print(epoch1,epoch2)
 
  str=time.time()
+#############################  CHANGE TO NEW FORMAT
  startdata, times = read_influx(src, unit, 'NI_Waveform', 'sensor2_ph1_freq', epoch2, pre_len, startEpoch) # sensor2_DC_mag
  end=time.time()
  datatime=end-str
@@ -249,6 +258,7 @@ def main():
     print('start:', epoch1, 'end:', epoch2)
 
     try:
+        #############################  CHANGE TO NEW FORMAT
         values, times = read_influx(src, unit, 'NI_Waveform', 'sensor2_ph1_freq', epoch2, pre_len,startEpoch)
         print("shape of the data being through",len(values))
     except Exception as e:
@@ -330,6 +340,7 @@ def main():
     # dt_write = datetime.fromtimestamp(epoch1)
     # print("dt_epoch1 =", dt_write)
 
+    #############################  CHANGE TO NEW FORMAT
     write_influx(dest, unit, 'sensor2_ph1_mag_score', 'score', [score], timestamp, 1)
     write_influx(dest, unit, 'sensor2_ph1_mag_state', 'state', [state], timestamp, 1)
     # tz_NY = pytz.timezone("America/New_York")
@@ -339,6 +350,7 @@ def main():
     # dt_write = datetime.fromtimestamp(currentTime.timestamp() )
     # print("dt_epoch1 =", dt_write)
 
+    #############################  CHANGE TO NEW FORMAT
     writeData = [
         {
             "measurement": "sensor2_ph1_mag_score",
@@ -351,6 +363,7 @@ def main():
         }
     ]
     print(unit)
+    #############################  CHANGE TO NEW FORMAT
     client.write_points(
         writeData, time_precision="n", batch_size=1, protocol="json"  #### check the writing limit: if there is anything
     )

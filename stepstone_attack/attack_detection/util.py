@@ -48,6 +48,8 @@ def grafana_time_epoch(time):
 # timestamp - the epoch time (in second) of the first element in the data array, such as datetime.now().timestamp()
 # fs - the sampling frequency of readings in data
 # unit - the unit location name tag
+
+#############################  CHANGE TO NEW FORMAT
 def write_influx(influx, unit, table_name, data_name, data, start_timestamp, fs):
     # print("epoch time:", timestamp) 
     timestamp = start_timestamp
@@ -80,6 +82,8 @@ def write_influx(influx, unit, table_name, data_name, data, start_timestamp, fs)
 # dataname - the dataname such as temperature, heartrate, etc
 # start_timestamp, end_timestamp - the epoch time (in second) of the first element in the data array, such as datetime.now().timestamp()
 # unit - the unit location name tag
+
+#############################  CHANGE TO NEW FORMAT
 def read_influx(influx, unit, table_name, data_name, start_timestamp,pre_len,startEpoch):
     client = InfluxDBClient(influx['ip'].split('//')[1], '8086', influx['user'], influx['passw'], influx['db'],  ssl=True)
     #client = InfluxDBClient('https://sensorwebturing.engr.uga.edu', '8086', influx['user'], influx['passw'], influx['db'],  ssl=True)
