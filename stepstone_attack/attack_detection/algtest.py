@@ -44,7 +44,7 @@ client = influxdb_client.InfluxDBClient(
 )
 #"""
 
-###rip = ip
+# rip = ip
 debug = True; #str2bool(config.get('general', 'debug'))
 verbose = True
 
@@ -54,8 +54,8 @@ verbose = True
 # src = {'ip': 'https://sensorwebdata.engr.uga.edu', 'db': 'satcdb', 'user':'test', 'passw':'sensorweb128'}
 # dest = {'ip': 'https://sensorwebdata.engr.uga.edu', 'db': 'satcdb', 'user':'test', 'passw':'sensorweb128'}
 
-# src = {'ip': 'https://sensorwebdata.engr.uga.edu', 'db': 'satcdb', 'user':'test', 'passw':'sensorweb128'}
-# dest = {'ip': 'https://sensorwebdata.engr.uga.edu', 'db': 'satcdb', 'user':'test', 'passw':'sensorweb128'}
+src = {'ip': 'https://sensorwebdata.engr.uga.edu', 'org':'lab711','token':'0ML4vBa-81dGKI3_wD-ReiSRdLggdJPXKoTKLPITBcOZXl8MJh7W8wFSkNUNM_uPS9mJpzvBxUKfKgie0dHiow==','bucket':'testbed'}
+dest = {'ip': 'https://sensorwebdata.engr.uga.edu', 'org':'lab711','token':'0ML4vBa-81dGKI3_wD-ReiSRdLggdJPXKoTKLPITBcOZXl8MJh7W8wFSkNUNM_uPS9mJpzvBxUKfKgie0dHiow==','bucket':'testbed'}
 
 def str2bool(v):
   return v.lower() in ("true", "1", "https", "t")
@@ -100,7 +100,7 @@ def main():
 
  alg.logpath = ""
 # Getting the user input parameters
-#global ip, rip
+#  global ip, rip
 
  unit = sys.argv[1]
 
@@ -161,16 +161,16 @@ def main():
 
  
  #print("client:",ip,port, user, passw, db, ssl)
- try:
-   client = influxdb_client.InfluxDBClient(
-    url=url,
-    token=token,
-    org=org
-)
- except Exception as e:
-   print("main(), DB access error:")
-   print("Error", e)
-   quit()
+#  try:
+#    client = influxdb_client.InfluxDBClient(
+#     url=url,
+#     token=token,
+#     org=org
+# )
+#  except Exception as e:
+#    print("main(), DB access error:")
+#    print("Error", e)
+#    quit()
 
 
  # set max retries for DB query
@@ -196,7 +196,7 @@ def main():
 
  str=time.time()
 #############################  CHANGE TO NEW FORMAT
- startdata, times = read_influx(src, unit, 'NI_Waveform', 'sensor2_ph1_freq', epoch2, pre_len, startEpoch) # sensor2_DC_mag
+ startdata, times = read_influx2(src, unit, 'NI_Waveform', 'sensor2_ph1_freq', epoch2, pre_len, startEpoch) # sensor2_DC_mag
  end=time.time()
  datatime=end-str
  print("time of reading the data:",datatime)
@@ -259,7 +259,7 @@ def main():
 
     try:
         #############################  CHANGE TO NEW FORMAT
-        values, times = read_influx(src, unit, 'NI_Waveform', 'sensor2_ph1_freq', epoch2, pre_len,startEpoch)
+        values, times = read_influx2(src, unit, 'NI_Waveform', 'sensor2_ph1_freq', epoch2, pre_len,startEpoch)
         print("shape of the data being through",len(values))
     except Exception as e:
         print("main(), no data in the query time period:")
@@ -341,8 +341,8 @@ def main():
     # print("dt_epoch1 =", dt_write)
 
     #############################  CHANGE TO NEW FORMAT
-    write_influx(dest, unit, 'sensor2_ph1_mag_score', 'score', [score], timestamp, 1)
-    write_influx(dest, unit, 'sensor2_ph1_mag_state', 'state', [state], timestamp, 1)
+    write_influx2(dest, unit, 'sensor2_ph1_mag_score', 'score', [score], timestamp, 1)
+    write_influx2(dest, unit, 'sensor2_ph1_mag_state', 'state', [state], timestamp, 1)
     # tz_NY = pytz.timezone("America/New_York")
     # currentTime = datetime.now(tz_NY)
     # timestamp = int(currentTime.timestamp()* 1000000000)
@@ -351,22 +351,22 @@ def main():
     # print("dt_epoch1 =", dt_write)
 
     #############################  CHANGE TO NEW FORMAT
-    writeData = [
-        {
-            "measurement": "sensor2_ph1_mag_score",
-            "tags": {"location": unit},
-            "fields": {
-                "score": score,
-                "state": state,
-            },
-            "time": timestamp,
-        }
-    ]
-    print(unit)
+    # writeData = [
+    #     {
+    #         "measurement": "sensor2_ph1_mag_score",
+    #         "tags": {"location": unit},
+    #         "fields": {
+    #             "score": score,
+    #             "state": state,
+    #         },
+    #         "time": timestamp,
+    #     }
+    # ]
+    # print(unit)
     #############################  CHANGE TO NEW FORMAT
-    client.write_points(
-        writeData, time_precision="n", batch_size=1, protocol="json"  #### check the writing limit: if there is anything
-    )
+    # client.write_points(
+    #     writeData, time_precision="n", batch_size=1, protocol="json"  #### check the writing limit: if there is anything
+    # )
 
     #write_influx(dest, unit, 'sensor1_DC_score', 'score', [score], timestamp, 1)
     #write_influx(dest, unit, 'sensor1_DC_state', 'state', [state], timestamp, 1)
