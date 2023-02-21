@@ -54,8 +54,8 @@ verbose = True
 # src = {'ip': 'https://sensorwebdata.engr.uga.edu', 'db': 'satcdb', 'user':'test', 'passw':'sensorweb128'}
 # dest = {'ip': 'https://sensorwebdata.engr.uga.edu', 'db': 'satcdb', 'user':'test', 'passw':'sensorweb128'}
 
-src = {'ip': 'https://sensorwebdata.engr.uga.edu', 'org':'lab711','token':'0ML4vBa-81dGKI3_wD-ReiSRdLggdJPXKoTKLPITBcOZXl8MJh7W8wFSkNUNM_uPS9mJpzvBxUKfKgie0dHiow==','bucket':'testbed'}
-dest = {'ip': 'https://sensorwebdata.engr.uga.edu', 'org':'lab711','token':'0ML4vBa-81dGKI3_wD-ReiSRdLggdJPXKoTKLPITBcOZXl8MJh7W8wFSkNUNM_uPS9mJpzvBxUKfKgie0dHiow==','bucket':'testbed'}
+src = {'ip': 'http://sensorwebdata.engr.uga.edu', 'org':'lab711','token':'0ML4vBa-81dGKI3_wD-ReiSRdLggdJPXKoTKLPITBcOZXl8MJh7W8wFSkNUNM_uPS9mJpzvBxUKfKgie0dHiow==','bucket':'testbed'}
+dest = {'ip': 'http://sensorwebdata.engr.uga.edu', 'org':'lab711','token':'0ML4vBa-81dGKI3_wD-ReiSRdLggdJPXKoTKLPITBcOZXl8MJh7W8wFSkNUNM_uPS9mJpzvBxUKfKgie0dHiow==','bucket':'testbed'}
 
 def str2bool(v):
   return v.lower() in ("true", "1", "https", "t")
@@ -196,7 +196,7 @@ def main():
 
  str=time.time()
 #############################  CHANGE TO NEW FORMAT
- startdata, times = read_influx2(src, unit, 'NI_Waveform', 'sensor2_ph1_freq', epoch2, pre_len, startEpoch) # sensor2_DC_mag
+ startdata, times = read_influx2(src, unit, 'NI_Waveform', 'sensor1_AC_mag', epoch2, pre_len, startEpoch) # sensor2_DC_mag
  end=time.time()
  datatime=end-str
  print("time of reading the data:",datatime)
@@ -259,7 +259,7 @@ def main():
 
     try:
         #############################  CHANGE TO NEW FORMAT
-        values, times = read_influx2(src, unit, 'NI_Waveform', 'sensor2_ph1_freq', epoch2, pre_len,startEpoch)
+        values, times = read_influx2(src, unit, 'NI_Waveform', 'sensor1_AC_mag', epoch2, pre_len,startEpoch)
         print("shape of the data being through",len(values))
     except Exception as e:
         print("main(), no data in the query time period:")
