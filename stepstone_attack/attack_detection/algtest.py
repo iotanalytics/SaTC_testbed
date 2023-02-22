@@ -21,6 +21,7 @@ import threading
 from datetime import datetime
 from dateutil import tz
 import pytz
+import warnings
 import ast
 import requests
 import subprocess
@@ -28,6 +29,8 @@ from dateutil.parser import parse
 #from config import Config
 import webbrowser
 from util import * 
+
+warnings.filterwarnings("ignore")
 
 #influxdb config
 token = "0ML4vBa-81dGKI3_wD-ReiSRdLggdJPXKoTKLPITBcOZXl8MJh7W8wFSkNUNM_uPS9mJpzvBxUKfKgie0dHiow=="
@@ -134,8 +137,9 @@ def main():
 
 # Determining the starting point of the buffer using epoch time
  epoch2 = current  #) # int( (current - datetime(1970,1,1)).total_seconds())
- startEpoch = epoch2
+ startEpoch = datetime.fromtimestamp(epoch2).isoformat()
  
+ print(startEpoch)
 
  print("len(sys.argv)", len(sys.argv))
  print("### Current time:", current, " ### \n")
@@ -187,16 +191,20 @@ def main():
 #  epoch1 = epoch2 - pre_len/fs   #int((pre_len/fs)*1000)
  
  epoch1=epoch2 + pre_len/fs
- dt_epoch2 = datetime.fromtimestamp(epoch2)
+#  dt_epoch2 = datetime.fromtimestamp(epoch2)
+ epoch2_ios = datetime.fromtimestamp(epoch2).isoformat()
  #dt_epoch2 = datetime.fromtimestamp(epoch2)
- print("dt_epoch1 =", dt_epoch2,epoch2)
+#  print("dt_epoch1 =", dt_epoch2)
+ print("epoch2 =", epoch2)
  #print("dt_epoch2 =", dt_epoch2)
 
  #print(epoch1,epoch2)
 
  str=time.time()
 #############################  CHANGE TO NEW FORMAT
- startdata, times = read_influx2(src, unit, 'NI_Waveform', 'sensor1_AC_mag', epoch2, pre_len, startEpoch) # sensor2_DC_mag
+
+ startdata, times = read_influx2(src, unit, 'NI_Waveform', 'sensor1_AC_mag', epoch2_ios, pre_len, startEpoch) # sensor2_DC_mag
+ print(times)
  end=time.time()
  datatime=end-str
  print("time of reading the data:",datatime)
@@ -207,8 +215,10 @@ def main():
  print("time length of the window:")
  
 
- timein = datetime.strptime(times[pre_len-1],"%Y-%m-%dT%H:%M:%S.%fZ")
- timeout = datetime.strptime(times[0],"%Y-%m-%dT%H:%M:%S.%fZ")
+#  timein = datetime.strptime(times[pre_len-1],"%Y-%m-%dT%H:%M:%S.%fZ")
+#  timeout = datetime.strptime(times[0],"%Y-%m-%dT%H:%M:%S.%fZ")
+ timein = times[-1]
+ timeout = times[0]
 
  print(timein-timeout)
  #start=data[:pre_len]  #### get the start data which is required to initiate the algorithm, the length is "pre_len"
@@ -256,10 +266,11 @@ def main():
           quit()
     
     print('start:', epoch1, 'end:', epoch2)
+    epoch2_ios = datetime.fromtimestamp(epoch2).isoformat()
 
     try:
         #############################  CHANGE TO NEW FORMAT
-        values, times = read_influx2(src, unit, 'NI_Waveform', 'sensor1_AC_mag', epoch2, pre_len,startEpoch)
+        values, times = read_influx2(src, unit, 'NI_Waveform', 'sensor1_AC_mag', epoch2_ios, pre_len, startEpoch)
         print("shape of the data being through",len(values))
     except Exception as e:
         print("main(), no data in the query time period:")
@@ -341,8 +352,8 @@ def main():
     # print("dt_epoch1 =", dt_write)
 
     #############################  CHANGE TO NEW FORMAT
-    write_influx2(dest, unit, 'sensor2_ph1_mag_score', 'score', [score], timestamp, 1)
-    write_influx2(dest, unit, 'sensor2_ph1_mag_state', 'state', [state], timestamp, 1)
+    write_influx2(dest, unit, 'sensor1_AC_mag_score', 'score', [score], timestamp, 1)
+    write_influx2(dest, unit, 'sensor1_AC_mag_score', 'state', [state], timestamp, 1)
     # tz_NY = pytz.timezone("America/New_York")
     # currentTime = datetime.now(tz_NY)
     # timestamp = int(currentTime.timestamp()* 1000000000)

@@ -86,7 +86,7 @@ def write_influx2(influx, unit, table_name, data_name, data, start_timestamp, fs
     org = influx['org']
     token = influx['token']
     url = influx['ip'] + ":8086"
-    start = str(int(start_timestamp*10e8))
+    start = start_timestamp
     
     max_size = 1
     count = 0
@@ -144,13 +144,13 @@ def read_influx(influx, unit, table_name, data_name, start_timestamp,pre_len,sta
     return data, times
 
 
-def read_influx2(influx, unit, table_name, data_name, start_timestamp,pre_len,startEpoch):
+def read_influx2(influx, unit, table_name, data_name, start_timestamp, pre_len, startEpoch):
     
     bucket = influx['bucket']
     org = influx['org']
     token = influx['token']
     url = influx['ip'] + ":8086"
-    start = str(int(start_timestamp*10e8))
+    start = start_timestamp + 'Z' # correct format
     
     client = influxdb_client.InfluxDBClient(
         url=url,
@@ -167,22 +167,19 @@ def read_influx2(influx, unit, table_name, data_name, start_timestamp,pre_len,st
         time.sleep(3)
             
     query_api = client.query_api()
-    query = f' from(bucket:{bucket})\
+    query = f' from(bucket:"{bucket}")\
     |> range(start: {start})\
-    |> filter(fn:(r) => r._measurement == {table_name})\
-    |> filter(fn:(r) => r._field == {data_name} )'
+    |> filter(fn:(r) => r._measurement == "{table_name}")\
+    |> filter(fn:(r) => r._field == "{data_name}" )\
+    |> limit(n:{pre_len})'
+    
+    print(query)
     
     result = query_api.query(org=org, query=query)
     data, times = [], []
-    cnt = 0
     for table in result:
-        if cnt == pre_len:
-            break
         for record in table.records:
             data.append(record.get_value())
             times.append(record.get_time())
-            cnt += 1
-            if cnt == pre_len:
-                break
 
     return data, times
