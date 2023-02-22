@@ -81,7 +81,6 @@ def write_influx(influx, unit, table_name, data_name, data, start_timestamp, fs)
         subprocess.call(http_post, shell=True)
         
 def write_influx2(influx, unit, table_name, data_name, data, start_timestamp, fs):
-    timestamp = start_timestamp
     bucket = influx['bucket']
     org = influx['org']
     token = influx['token']
