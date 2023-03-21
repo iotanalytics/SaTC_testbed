@@ -77,7 +77,7 @@ def main():
  # Parameters from Config file
  db           = bucket #'satcdb' # config.get('general', 'dbraw')
  buffersize   = 30 # config.get('general', 'buffersize')
- samplingrate = 5 # int(config.get('general', 'samplingrate'))
+ samplingrate = 2 # int(config.get('general', 'samplingrate'))
  hrTimeWindow    = 30 # int(config.get('main', 'hrTimeWindow'))
  maxbuffersize   = int(buffersize) * int(samplingrate)
 
@@ -87,7 +87,7 @@ def main():
 
  pre_len = order + win_length + lag
  #### read data of length pre_len
- thres1=0.4 #(normally, thres2 < thres1) thres1 is threshold for detecting anomalies' starts
+ thres1=0.2 #(normally, thres2 < thres1) thres1 is threshold for detecting anomalies' starts
  thres2=0.1 #thres2 is threshold for detecting anomalies' starts
  state=0
  #maxbuffersize=pre_len
